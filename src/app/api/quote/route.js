@@ -1,7 +1,10 @@
 import { transporter } from "@/lib/mailer";
 import {
   adminEmailTemplate,
+  careerEmailTemplate,
   autoReplyTemplate,
+  careerAutoReplyTemplate,
+  
 } from "@/lib/emailTemplates";
 
 export const runtime = "nodejs";
@@ -14,6 +17,13 @@ const allowedServices = [
   "Inland Transportation",
   "Customs Clearance",
   "Import on Behalf of Others",
+];
+const allowedInquiryTypes = [
+  "Existing Customer",
+  "General Inquiry",
+  "Partnership",
+  "Shipment Inquiry",
+  "Other",
 ];
 
 function clean(value) {
@@ -127,12 +137,13 @@ export async function POST(req) {
 
       const fileBuffer = Buffer.from(await cv.arrayBuffer());
 
+      // Send application to HR
       await transporter.sendMail({
         from: `"AM Logistics Careers" <${process.env.SMTP_USER}>`,
         to: process.env.MAIL_TO,
         replyTo: body.email,
         subject: `New Job Application - ${body.position}`,
-        html: adminEmailTemplate(body),
+        html: careerEmailTemplate(body),
         attachments: [
           {
             filename: cv.name || "CV.pdf",
@@ -141,6 +152,21 @@ export async function POST(req) {
           },
         ],
       });
+
+      // Send confirmation to applicant
+      try {
+        await transporter.sendMail({
+          from: `"AM Logistics" <${process.env.SMTP_USER}>`,
+          to: body.email,
+          subject: "Application Received - AM Logistics",
+          html: careerAutoReplyTemplate(body.name, body.position),
+        });
+      } catch (autoReplyError) {
+        console.error(
+          "Career auto-reply email failed:",
+          autoReplyError
+        );
+      }
 
       return Response.json({
         success: true,
@@ -165,18 +191,19 @@ export async function POST(req) {
       );
     }
 
-    const data = {
-      formType,
-      name: clean(body.name),
-      company: clean(body.company),
-      email: clean(body.email),
-      phone: clean(body.phone),
-      origin: clean(body.origin),
-      destination: clean(body.destination),
-      service: clean(body.service || body.shipmentType),
-      cargo: clean(body.cargo),
-      message: clean(body.message),
-    };
+   const data = {
+  formType,
+  name: clean(body.name),
+  company: clean(body.company),
+  email: clean(body.email),
+  phone: clean(body.phone),
+  origin: clean(body.origin),
+  destination: clean(body.destination),
+  service: clean(body.service || body.shipmentType),
+  inquiryType: clean(body.inquiryType),
+  cargo: clean(body.cargo),
+  message: clean(body.message),
+};
 
     const commonError = validateCommonFields(data);
 
@@ -222,19 +249,19 @@ export async function POST(req) {
       }
     }
 
-    if (
-      formType === "contact" &&
-      data.service &&
-      !allowedServices.includes(data.service)
-    ) {
-      return Response.json(
-        {
-          success: false,
-          message: "Please select a valid service.",
-        },
-        { status: 400 }
-      );
-    }
+if (formType === "contact") {
+  if (!allowedInquiryTypes.includes(data.inquiryType)) {
+    return Response.json(
+      {
+        success: false,
+        message: "Please select a valid inquiry type.",
+      },
+      { status: 400 }
+    );
+  }
+}
+
+    
 
     /*
      * ADMIN EMAIL

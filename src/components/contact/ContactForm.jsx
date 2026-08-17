@@ -12,6 +12,7 @@ const ContactForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   // const onSubmit = async (data) => {
@@ -30,47 +31,48 @@ const ContactForm = () => {
   //     alert("Something went wrong.");
   //   }
   // };
-const [error, setError] = useState("");
- const onSubmit = async (data) => {
-  setLoading(true);
-  setError("");
+  const [error, setError] = useState("");
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setError("");
 
-  try {
-    const res = await fetch("/api/quote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...data,
-        formType: "contact",
-      }),
-    });
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          formType: "contact",
+        }),
+      });
 
-    const result = await res.json();
+      const result = await res.json();
 
-    if (!res.ok) {
-      throw new Error(result.message || "Something went wrong.");
-    }
+      if (!res.ok) {
+        throw new Error(result.message || "Something went wrong.");
+      }
 
-    setShowModal(true);
-  } catch (error) {
-    setError(
-      error.message ||
+      setShowModal(true);
+      reset();
+    } catch (error) {
+      setError(
+        error.message ||
         "We could not send your message. Please try again."
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="py-24">
       <div className="mx-auto max-w-3xl px-6">
-        <h2 className="mb-6 text-3xl font-bold text-center">Request a Quote</h2>
+        <h2 className="mb-6 text-3xl font-bold text-center">Send Us a Message</h2>
 
         <p className="mb-10 text-center text-gray-600">
-          Provide your shipment details and our team will contact you shortly.
+          Have a question or need more information about our logistics services? Send us a message and our team will get back to you shortly.
         </p>
 
         <form
@@ -120,24 +122,39 @@ const [error, setError] = useState("");
               {...register("phone", { required: "Phone is required" })}
               className="w-full rounded-md border px-4 py-2"
             />
+            {errors.phone && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.phone.message}
+              </p>
+            )}
           </div>
 
           {/* Shipment Type */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Shipment Type
+              Inquiry Type
             </label>
+
             <select
-              {...register("service", { required: true })}
+              {...register("inquiryType", {
+                required: "Please select an inquiry type",
+              })}
               className="w-full rounded-md border px-4 py-2"
+              defaultValue=""
             >
-              <option value="">Select Service</option>
-<option>Ocean Freight</option>
-<option>Air Freight</option>
-<option>Inland Transportation</option>
-<option>Customs Clearance</option>
-<option>Import on Behalf of Others</option>
+              <option value="">Select Inquiry Type</option>
+              <option value="Existing Customer">Existing Customer</option>
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Partnership">Partnership</option>
+              <option value="Shipment Inquiry">Shipment Inquiry</option>
+              <option value="Other">Other</option>
             </select>
+
+            {errors.inquiryType && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.inquiryType.message}
+              </p>
+            )}
           </div>
 
           {/* Message */}
@@ -158,10 +175,10 @@ const [error, setError] = useState("");
             Submit Request
           </button> */}
           {error && (
-  <p className="rounded-md bg-red-50 p-3 text-sm text-red-600">
-    {error}
-  </p>
-)}
+            <p className="rounded-md bg-red-50 p-3 text-sm text-red-600">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

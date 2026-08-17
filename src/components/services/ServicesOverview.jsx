@@ -27,7 +27,7 @@ const ServicesOverview = () => {
 
             return (
               <Link
-                href={`/Services/${service.slug}`}
+                href={`/services/${service.slug}`}
                 key={service.id}
               >
                 <motion.div

@@ -7,7 +7,7 @@ const jobs = [
     location: "Cairo / Hybrid",
   },
   {
-    title: "Sales Executive (Logistics)",
+    title: "Sales Executive",
     desc: "Develop new clients and manage logistics accounts.",
     location: "Cairo / Hybrid",
   },
@@ -25,30 +25,51 @@ const jobs = [
 
 export default function OpenPositions() {
   const scrollToForm = (jobTitle) => {
-    const el = document.getElementById("apply-form");
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth" });
-
-    // set job in dropdown
     const select = document.getElementById("positionField");
-    if (select) select.value = jobTitle;
+
+    if (select) {
+      select.value = jobTitle;
+
+      // Notify React Hook Form that the select value changed
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    const el = document.getElementById("apply-form");
+
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <section id="open-positions" className="py-24">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-16">Open Positions</h2>
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="mb-16 text-center text-4xl font-bold">
+          Open Positions
+        </h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {jobs.map((job,i)=>(
-            <div key={i} className="p-8 rounded-2xl border hover:shadow-xl transition">
-              <h3 className="text-2xl font-bold mb-3">{job.title}</h3>
-              <p className="text-gray-600 mb-4">{job.desc}</p>
-              <p className="text-sm mb-6 text-gray-500">{job.location}</p>
+        <div className="grid gap-8 md:grid-cols-2">
+          {jobs.map((job) => (
+            <div
+              key={job.title}
+              className="rounded-2xl border p-8 transition hover:shadow-xl"
+            >
+              <h3 className="mb-3 text-2xl font-bold">
+                {job.title}
+              </h3>
+
+              <p className="mb-4 text-gray-600">
+                {job.desc}
+              </p>
+
+              <p className="mb-6 text-sm text-gray-500">
+                {job.location}
+              </p>
 
               <button
-                onClick={()=>scrollToForm(job.title)}
-                className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-orange-500 transition"
+                type="button"
+                onClick={() => scrollToForm(job.title)}
+                className="rounded-md bg-blue-900 px-6 py-3 text-white transition hover:bg-orange-500"
               >
                 Apply Now
               </button>

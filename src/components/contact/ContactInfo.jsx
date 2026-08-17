@@ -9,7 +9,8 @@ const ContactInfo = () => {
           <div className="rounded-xl bg-white p-8 shadow-sm">
             <Phone className="mx-auto mb-4 text-blue-900" />
             <h4 className="mb-2 font-semibold">Phone</h4>
-            <p className="text-sm text-gray-600">+20 10 0000 0000</p>
+            <p className="text-sm text-gray-600">+20 11 4904 5481</p>
+            <p className="text-sm text-gray-600">+20 10 3376 8484</p>
           </div>
 
           <div className="rounded-xl bg-white p-8 shadow-sm">
@@ -21,13 +22,13 @@ const ContactInfo = () => {
           <div className="rounded-xl bg-white p-8 shadow-sm">
             <MapPin className="mx-auto mb-4 text-blue-900" />
             <h4 className="mb-2 font-semibold">Office</h4>
-            <p className="text-sm text-gray-600">Cairo, Egypt</p>
+            <p className="text-sm text-gray-600">Becho American City Zahraa Al-Maadi Phase 2 building 6 in front of Maadi Traffic Cairo, Egypt</p>
           </div>
 
           <div className="rounded-xl bg-white p-8 shadow-sm">
             <Clock className="mx-auto mb-4 text-blue-900" />
             <h4 className="mb-2 font-semibold">Working Hours</h4>
-            <p className="text-sm text-gray-600">Sun – Thu | 9:00 – 18:00</p>
+            <p className="text-sm text-gray-600">Sun – Thu | 9:00 – 17:00</p>
           </div>
         </div>
 

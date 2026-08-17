@@ -52,7 +52,7 @@ const Hero = () => {
               whileTap={{ scale: 0.96 }}
             >
               <Link
-                href="/contactUs"
+                href="/getQuote"
                 className="inline-flex rounded-md bg-orange-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
               >
                 Get a Quote

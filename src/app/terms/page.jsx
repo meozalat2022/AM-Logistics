@@ -15,7 +15,9 @@ const TermsPage = () => {
   }
   return (
     <main className="bg-white pt-32 pb-20 ml-4">
-      <p className="text-gray-600 mb-12">Last updated: 2026</p>
+      <h1 className="mb-4 text-4xl font-bold">
+  Terms & Conditions
+</h1>
 
       {/* Section */}
       <Section title="1. Introduction">

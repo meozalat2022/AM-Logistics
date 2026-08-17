@@ -53,7 +53,7 @@ const CareersForm = () => {
     } catch (error) {
       setError(
         error.message ||
-          "We could not submit your application. Please try again."
+        "We could not submit your application. Please try again."
       );
     } finally {
       setLoading(false);
@@ -120,6 +120,7 @@ const CareersForm = () => {
 
           <div>
             <select
+              id="positionField"
               {...register("position", {
                 required: "Please select a position",
               })}

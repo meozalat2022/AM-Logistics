@@ -17,7 +17,7 @@ const Services = () => {
       <ServicesOverview />
       <ServiceDetails />
       <ServicesWhyUs />
-      <ServicesCTA />
+      {/* <ServicesCTA /> */}
     </>
   );
 };

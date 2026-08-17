@@ -28,8 +28,8 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>📍 Becho American City Zahraa Al-Maadi Phase 2 building 6 in front of Maadi Traffic</li>
-                <li>📞 +20 10 337 68484</li>
-                <li>📞 +20 11 490 45481</li>
+                <li>📞 +20 10 3376 8484</li>
+                <li>📞 +20 11 4904 5481</li>
                 <li>✉️ info@amlogistics.com</li>
                 <li>🕒 Sun – Thu | 9:00 – 17:00</li>
               </ul>
@@ -37,7 +37,7 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-4 pt-4">
               <a
-                href="https://www.linkedin.com/company/your-company"
+                href="https://www.linkedin.com/company/138934032"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-blue-700"
@@ -72,7 +72,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="/Services/ocean-freight"
+                  href="/services/ocean-freight"
                   className="hover:text-white transition"
                 >
                   Ocean Freight
@@ -80,7 +80,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/Services/air-freight"
+                  href="/services/air-freight"
                   className="hover:text-white transition"
                 >
                   Air Freight
@@ -88,7 +88,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/Services/inland-transportation"
+                  href="/services/inland-transportation"
                   className="hover:text-white transition"
                 >
                   Inland Transportation
@@ -96,7 +96,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/Services/customs-clearance"
+                  href="/services/customs-clearance"
                   className="hover:text-white transition"
                 >
                   Customs Clearance
@@ -104,7 +104,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/Services/import-on-behalf"
+                  href="/services/import-on-behalf"
                   className="hover:text-white transition"
                 >
                   Import for Other
@@ -125,7 +125,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/ContactUs" className="hover:text-white transition">
+                <a href="/contactUs" className="hover:text-white transition">
                   Contact Us
                 </a>
               </li>

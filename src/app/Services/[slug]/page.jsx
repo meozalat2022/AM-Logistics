@@ -3,6 +3,51 @@ import Image from "next/image";
 import Link from "next/link";
 import { services } from "../../data/services";
 
+export function generateStaticParams() {
+  return services.map((service) => ({
+    slug: service.slug,
+  }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+
+  const service = services.find((item) => item.slug === slug);
+
+  if (!service) {
+    return {
+      title: "Service Not Found",
+      description: "The requested AM Logistics service could not be found.",
+    };
+  }
+
+  return {
+    title: service.title,
+    description: service.description,
+
+    openGraph: {
+      title: `${service.title} | AM Logistics`,
+      description: service.description,
+      type: "website",
+      images: [
+        {
+          url: service.heroImage,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | AM Logistics`,
+      description: service.description,
+      images: [service.heroImage],
+    },
+  };
+}
+
 export default async function ServicePage({ params }) {
   const { slug } = await params;
 
@@ -40,10 +85,10 @@ export default async function ServicePage({ params }) {
             </div>
 
             {/* Image */}
-            {service.image && (
+            {service.heroImage && (
               <div className="relative h-[350px] overflow-hidden rounded-2xl lg:h-[450px]">
                 <Image
-                  src={service.image}
+                  src={service.heroImage}
                   alt={service.title}
                   fill
                   priority
@@ -112,7 +157,7 @@ export default async function ServicePage({ params }) {
           </p>
 
           <Link
-            href="/contactUs"
+            href="/getQuote"
             className="mt-8 inline-flex rounded-full bg-orange-500 px-8 py-4 font-semibold text-white transition hover:bg-orange-600"
           >
             Request a Quote
